@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+
 	mux := routers.NewRouters()
 	http.ListenAndServe(":3000", mux)
 }

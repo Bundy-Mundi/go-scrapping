@@ -14,12 +14,11 @@ func APIRouter(mux *mux.Router) {
 	mux.HandleFunc("/get", func(res http.ResponseWriter, req *http.Request) {
 		var urls = []string{"https://www.billboard.com/charts/hot-100"}
 		s := scrapper.NewScrapper(urls)
-		result := s.Scrape()
+		doc := s.FetchURL("https://www.billboard.com/charts/hot-100")
+		s.ScrapeBillboard(doc)
 		req.Header.Set("Content-Type", "application/json")
+		// _ = ioutil.WriteFile("test.json", file, 0777)
 
-		for _, v := range result["https://www.billboard.com/charts/hot-100"] {
-			fmt.Println(v)
-		}
 	})
 	mux.HandleFunc("/post", func(res http.ResponseWriter, req *http.Request) {
 
